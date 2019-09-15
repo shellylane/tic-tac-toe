@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Board from "../Board";
 import "./index.css";
+import Check from "../../utils/Check";
 
 class Game extends Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class Game extends Component {
     const squares = current.squares.slice();
 
     //if someone has one or the square i already filled
-    if (calculateWinner(squares) || squares[i]) {
+    if (Check.calculateWinner(squares) || squares[i]) {
       //return and ignore any clicks
       return;
     }
@@ -51,7 +52,7 @@ class Game extends Component {
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
-    const winner = calculateWinner(current.squares);
+    const winner = Check.calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
       const buttonText = move ? "Go to move #" + move : "Go to game start";
@@ -85,27 +86,3 @@ class Game extends Component {
 }
 
 export default Game;
-
-function calculateWinner(squares) {
-  // each array is all the squares that would make up a line
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-  ];
-  // loop through all of the lines
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    //if there is an 'a' & 'a' = 'b' & 'a also = c' return the value of a  (x or o)
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
-    }
-  }
-  //otherwise return null
-  return null;
-}
