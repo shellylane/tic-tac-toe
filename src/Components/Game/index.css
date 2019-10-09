@@ -16,11 +16,19 @@ ul {
   background: #ddd;
 }
 
+.game-board {
+}
 .game {
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 .game-info {
   margin-left: 20px;
+}
+.status-text {
+  font-size: 50px;
+  margin: 30px;
+  font-weight: bold;
 }
